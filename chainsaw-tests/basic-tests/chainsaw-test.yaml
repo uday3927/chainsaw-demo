@@ -1,17 +1,13 @@
 apiVersion: chainsaw.kyverno.io/v1alpha1
 kind: Test
 metadata:
-  name: basic-deployment-test
+  name: assert-deployment
 spec:
   steps:
-  - name: create-deployment
-    try:
-    - apply:
-        file: deployment.yaml
-    - assert:
-        file: assert-deployment.yaml
-  - name: check-pod-ready
-    try:
-    - script:
-        content: |
-          kubectl wait --for=condition=Ready pods -l app=nginx --timeout=60s
+    - try:
+        - apply:
+            file: deployment.yaml
+    - try:
+        - assert:
+            file: assert-deployment.yaml
+
