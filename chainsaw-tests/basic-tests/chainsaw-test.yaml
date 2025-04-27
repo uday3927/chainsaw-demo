@@ -1,14 +1,15 @@
 apiVersion: chainsaw.kyverno.io/v1alpha1
 kind: Test
 metadata:
-  name: basic-pass-test
+  name: assert-deployment
 spec:
   steps:
-    - name: Dummy pass step
-      try:
-        - script:
-            content: |
-              echo "Hello, world! This test will pass."
+    - try:
+        - apply:
+            file: deployment.yaml
+    - try:
+        - assert:
+            file: assert-deployment.yaml
 
 
 
