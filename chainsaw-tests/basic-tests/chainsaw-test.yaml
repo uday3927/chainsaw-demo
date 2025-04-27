@@ -1,12 +1,14 @@
 apiVersion: chainsaw.kyverno.io/v1alpha1
 kind: Test
 metadata:
-  name: sample-test
+  name: assert-deployment
 spec:
   steps:
-  - name: Check something
-    try:
-    - apply:
-        file: some-resource.yaml
+    - try:
+        - apply:
+            file: deployment.yaml
+    - try:
+        - assert:
+            file: assert-deployment.yaml
 
 
